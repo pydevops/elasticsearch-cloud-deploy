@@ -95,7 +95,6 @@ az account show --query "{ subscription_id: id }"
 Generate the JSON service account key for the default compute engine service account:
 
 ```
-SA_EMAIL=$(gcloud iam service-accounts list --filter=name~compute@developer --format='value(email)')
 PROJECT=$(gcloud config get-value project)
 PROJECT_NUM=$(gcloud projects describe ${PROJECT} --format='value(projectNumber)')
 SA_EMAIL="${PROJECT_NUM}-compute@developer.gserviceaccount.com"
