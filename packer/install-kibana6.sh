@@ -28,3 +28,6 @@ until $(curl --output /dev/null --silent --head --fail http://localhost:5601); d
     printf '.'
     sleep 5
 done
+
+sudo service kibana stop
+sleep 10

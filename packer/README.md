@@ -92,7 +92,23 @@ az account show --query "{ subscription_id: id }"
 
 ## Google Cloud Platform
 
-gcloud and retrieving the account.json file
+Generate the JSON service account key for the default compute engine service account:
+
+```
+SA_EMAIL=$(gcloud iam service-accounts list --filter=name~compute@developer --format='value(email)')
+PROJECT=$(gcloud config get-value project)
+PROJECT_NUM=$(gcloud projects describe ${PROJECT} --format='value(projectNumber)')
+SA_EMAIL="${PROJECT_NUM}-compute@developer.gserviceaccount.com"
+
+gcloud iam service-accounts keys create .gcp_account.json --iam-account=${SA_EMAIL}
+```
+
+Building:
+
+```
+packer build -only=googlecompute -var-file=variables.json -var gcp_project_id=$(gcloud config get-value project) elasticsearch6-node.packer.json
+packer build -only=googlecompute -var-file=variables.json -var gcp_project_id=$(gcloud config get-value project) kibana6-node.packer.json
+```
 
 ## Building
 
